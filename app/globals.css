@@ -8,8 +8,14 @@
   --color-muted: #94a3b8; /* Muted slate (used for secondary text) */
 }
 
-@base {
+@layer base {
   a {
     @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-slate-800 border border-slate-700 rounded-md;
   }
 }

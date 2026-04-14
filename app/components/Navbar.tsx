@@ -36,6 +36,14 @@ export default function Navbar() {
             >
               Dashboard
             </Link>
+            <div className="flex items-center space-x-2">
+              <Link
+                href={"/login"}
+                className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-sm font-medium transition-colors"
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
           <div className="md:hidden flex items-center">
             <button
@@ -79,6 +87,14 @@ export default function Navbar() {
               >
                 Dashboard
               </Link>
+              <div className="flex items-center space-x-2 px-3">
+                <Link
+                  href={"/login"}
+                  className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-base font-medium transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </div>
             </div>
           </div>
         )}
