@@ -1,9 +1,11 @@
 "use client";
 
+import { logout } from "@/lib/auth-actions";
+import { Session } from "next-auth";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ session }: { session: Session | null }) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
     <nav className="bg-slate-800 border-b border-slate-700 shadow-lg">
@@ -24,26 +26,39 @@ export default function Navbar() {
             >
               Events
             </Link>
-            <Link
-              href={"/create"}
-              className="hover:text-primary px-3 py-2 rouded-md text-sm font-medium transition-colors"
-            >
-              Create events
-            </Link>
-            <Link
-              href={"/dashboard"}
-              className="hover:text-primary px-3 py-2 rouded-md text-sm font-medium transition-colors"
-            >
-              Dashboard
-            </Link>
-            <div className="flex items-center space-x-2">
-              <Link
-                href={"/login"}
-                className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-sm font-medium transition-colors"
-              >
-                Sign Up
-              </Link>
-            </div>
+            {session ? (
+              <>
+                <Link
+                  href={"/create"}
+                  className="hover:text-primary px-3 py-2 rouded-md text-sm font-medium transition-colors"
+                >
+                  Create events
+                </Link>
+                <Link
+                  href={"/dashboard"}
+                  className="hover:text-primary px-3 py-2 rouded-md text-sm font-medium transition-colors"
+                >
+                  Dashboard
+                </Link>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={logout}
+                    className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-sm font-medium transition-colors cursor-pointer"
+                  >
+                    Log out
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Link
+                  href={"/login"}
+                  className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-sm font-medium transition-colors cursor-pointer"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
           <div className="md:hidden flex items-center">
             <button
@@ -75,26 +90,39 @@ export default function Navbar() {
               >
                 Events
               </Link>
-              <Link
-                href={"/create"}
-                className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
-              >
-                Create events
-              </Link>
-              <Link
-                href={"/dashboard"}
-                className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
-              >
-                Dashboard
-              </Link>
-              <div className="flex items-center space-x-2 px-3">
-                <Link
-                  href={"/login"}
-                  className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-base font-medium transition-colors"
-                >
-                  Sign Up
-                </Link>
-              </div>
+              {session ? (
+                <>
+                  <Link
+                    href={"/create"}
+                    className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
+                  >
+                    Create events
+                  </Link>
+                  <Link
+                    href={"/dashboard"}
+                    className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <div className="flex items-center space-x-2 px-3">
+                    <button
+                      onClick={logout}
+                      className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-base font-medium transition-colors"
+                    >
+                      Log out
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center space-x-2 px-3">
+                  <Link
+                    href={"/login"}
+                    className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-base font-medium transition-colors"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}
