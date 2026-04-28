@@ -18,4 +18,13 @@
   .card {
     @apply bg-slate-800 border border-slate-700 rounded-md;
   }
+  .input-field {
+    @apply w-full px-3 py-2 border border-slate-600 rounded-md bg-slate-800 text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+  }
+  .btn-primary {
+    @apply bg-primary text-background px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors cursor-pointer;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-background px-4 py-2 rounded-md font-medium hover:bg-secondary/90 transition-colors cursor-pointer;
+  }
 }

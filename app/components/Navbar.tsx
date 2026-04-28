@@ -29,7 +29,7 @@ export default function Navbar({ session }: { session: Session | null }) {
             {session ? (
               <>
                 <Link
-                  href={"/create"}
+                  href={"/events/create"}
                   className="hover:text-primary px-3 py-2 rouded-md text-sm font-medium transition-colors"
                 >
                   Create events
@@ -93,7 +93,7 @@ export default function Navbar({ session }: { session: Session | null }) {
               {session ? (
                 <>
                   <Link
-                    href={"/create"}
+                    href={"/events/create"}
                     className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
                   >
                     Create events

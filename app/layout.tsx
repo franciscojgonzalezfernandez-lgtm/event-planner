@@ -31,9 +31,9 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <div className="min-h-screen bg-background text-foreground">
+        <div className="min-h-screen bg-background text-foreground pb-12">
           <Navbar session={session} />
-          {children}
+          <div className="mx-auto px-4 py-8">{children}</div>
         </div>
       </body>
     </html>
