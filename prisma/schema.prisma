@@ -63,6 +63,7 @@ model Event {
   isPublic     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  image        String?
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
