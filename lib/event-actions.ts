@@ -32,7 +32,7 @@ const eventSchema = z.object({
     }, "Invalid image URL"),
 });
 
-export async function createEvent(formData: FormData) {
+export async function createEvent(_: unknown, formData: FormData) {
   const session = await auth();
   if (!session?.user?.id) {
     return { success: false, error: "Unauthorized" };
@@ -65,6 +65,6 @@ export async function createEvent(formData: FormData) {
     return { success: true, eventId: event.id };
   } catch (error) {
     console.log(error);
-    return { success: false, error: "Failed to create event" };
+    return { success: false, error: "Failed to create event", eventId: null };
   }
 }

@@ -1,18 +1,18 @@
 "use client";
 import { createEvent } from "@/lib/event-actions";
 import { useRouter } from "next/navigation";
+import { useActionState } from "react";
 
 export default function CreateEventPage() {
   const router = useRouter();
+  const [state, formAction, isPending] = useActionState(createEvent, {
+    success: false,
+    error: "",
+    eventId: null,
+  });
 
-  async function handleSubmit(formData: FormData) {
-    const result = await createEvent(formData);
-    console.log("Create event result:", result);
-    if (result.success) {
-      //router.push(`/events/${result.eventId}`);
-    } else {
-      console.error(result.error);
-    }
+  if (state.success && state.eventId) {
+    router.push(`/events/${state.eventId}`);
   }
   return (
     <div className="max-w-2xl mx-auto">
@@ -22,7 +22,7 @@ export default function CreateEventPage() {
           Fill out the form below to create your event
         </p>
       </div>
-      <form className="space-y-6" action={handleSubmit}>
+      <form className="space-y-6" action={formAction}>
         <div>
           <label
             htmlFor="title"
@@ -141,13 +141,19 @@ export default function CreateEventPage() {
             </div>
           </div>
         </div>
+        {state.error && (
+          <div className="bg-red-600/10 border border-red-600/20 p-4 rounded-md">
+            <p className="text-red-600 text-sm">{state.error}</p>
+          </div>
+        )}
         <div className="flex gap-4">
-          <button className="btn-primary" type="submit">
-            Create Event
+          <button className="btn-primary" type="submit" disabled={isPending}>
+            {isPending ? "Creating..." : "Create Event"}
           </button>
           <button
             className="btn-secondary"
             type="button"
+            disabled={isPending}
             onClick={() => router.back()}
           >
             Cancel
