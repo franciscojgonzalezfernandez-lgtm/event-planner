@@ -1,7 +1,19 @@
 "use client";
+import { createEvent } from "@/lib/event-actions";
 import { useRouter } from "next/navigation";
+
 export default function CreateEventPage() {
   const router = useRouter();
+
+  async function handleSubmit(formData: FormData) {
+    const result = await createEvent(formData);
+    console.log("Create event result:", result);
+    if (result.success) {
+      //router.push(`/events/${result.eventId}`);
+    } else {
+      console.error(result.error);
+    }
+  }
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
@@ -10,7 +22,7 @@ export default function CreateEventPage() {
           Fill out the form below to create your event
         </p>
       </div>
-      <form className="space-y-6">
+      <form className="space-y-6" action={handleSubmit}>
         <div>
           <label
             htmlFor="title"
@@ -75,6 +87,21 @@ export default function CreateEventPage() {
               placeholder="Enter a precise event location"
             />
           </div>
+        </div>
+        <div>
+          <label
+            htmlFor="image"
+            className="block text-sm text-foreground font-medium mb-2"
+          >
+            Event Cover
+          </label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            className="input-field"
+            placeholder="Enter image URL"
+          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
