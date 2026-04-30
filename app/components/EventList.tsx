@@ -4,6 +4,7 @@ import AttendeesIcon from "@/public/AttendeesIcon";
 import DateIcon from "@/public/DateIcon";
 import LocationIcon from "@/public/LocationIcon";
 import { format } from "date-fns";
+import Link from "next/link";
 
 interface Event {
   id: string;
@@ -33,6 +34,20 @@ export default function EventList({
     <div className="space-y-6">
       {/* Search and filter */}
       <div></div>
+
+      {events.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-muted text-lg">No events found</p>
+          {isAuthenticated && (
+            <Link
+              className="btn-primary mt-4 inline-block"
+              href={"/events/create"}
+            >
+              Create the first event
+            </Link>
+          )}
+        </div>
+      )}
       {/* Events grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.map((event) => (
@@ -65,6 +80,14 @@ export default function EventList({
                   <AttendeesIcon />
                   by {event.user.name || "Unknown"}
                 </div>
+              </div>
+              <div className="mt-4">
+                <Link
+                  href={`/events/${event.id}`}
+                  className="text-primary hover:text-primary/80 font-medium transition-colors"
+                >
+                  View Details
+                </Link>
               </div>
             </div>
           </div>
