@@ -1,11 +1,22 @@
 import { auth } from "@/auth";
 import EventList from "../components/EventList";
 
-export default async function EventsPage() {
+export default async function EventsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string; filter?: string }>;
+}) {
   /* const events = await getEvents(); */
   const session = await auth();
+  const sp = await searchParams;
 
-  const eventsResponse = await fetch("http://localhost:3000/api/events");
+  const params = new URLSearchParams();
+  if (sp.search) params.set("search", sp.search);
+  if (sp.filter) params.set("filter", sp.filter);
+
+  const eventsResponse = await fetch(
+    `http://localhost:3000/api/events?${params.toString()}`,
+  );
   const events = eventsResponse.ok ? await eventsResponse.json() : [];
 
   console.log(events);
@@ -27,7 +38,7 @@ export default async function EventsPage() {
       </div>
       <EventList
         events={events}
-        searchParams={null}
+        searchParams={sp}
         isAuthenticated={!!session}
       />
     </div>

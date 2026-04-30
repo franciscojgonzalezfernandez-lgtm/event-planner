@@ -5,6 +5,7 @@ import DateIcon from "@/public/DateIcon";
 import LocationIcon from "@/public/LocationIcon";
 import { format } from "date-fns";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Event {
   id: string;
@@ -22,7 +23,7 @@ interface Event {
 
 interface EventListProps {
   events: Event[];
-  searchParams: { query?: string };
+  searchParams: { search?: string; filter?: string };
   isAuthenticated: boolean;
 }
 export default function EventList({
@@ -30,10 +31,46 @@ export default function EventList({
   searchParams,
   isAuthenticated,
 }: EventListProps) {
+  const router = useRouter();
+  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const search = formData.get("search") as string;
+    const filter = formData.get("filter") as string;
+    const params = new URLSearchParams();
+    if (search) params.set("search", search);
+    if (filter) params.set("filter", filter);
+
+    router.push(`/events?${params.toString()}`);
+  }
   return (
     <div className="space-y-6">
       {/* Search and filter */}
-      <div></div>
+      <div className="card p-6">
+        <form onSubmit={handleSearch} className="flex gap-4 flex-wrap">
+          <div className="flex-1 mw-w-64">
+            <input
+              name="search"
+              type="search"
+              placeholder="Search events..."
+              defaultValue={searchParams.search}
+              className="input-field"
+            />
+          </div>
+          <select
+            name="filter"
+            className="input-filed w-auto"
+            defaultValue={searchParams.filter}
+          >
+            <option value="">All events</option>
+            <option value="upcoming">Upcoming</option>
+            <option value="past">Past</option>
+          </select>
+          <button type="submit" className="btn-primary">
+            Filter
+          </button>
+        </form>
+      </div>
 
       {events.length === 0 && (
         <div className="text-center py-12">
