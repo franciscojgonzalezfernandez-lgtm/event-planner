@@ -6,21 +6,7 @@ import LocationIcon from "@/public/LocationIcon";
 import { format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: Date;
-  location: string;
-  maxAttendees: number;
-  image: string;
-  user: {
-    name: string;
-    email: string;
-  };
-}
-
+import type { Event } from "@/lib/models";
 interface EventListProps {
   events: Event[];
   searchParams: { search?: string; filter?: string };

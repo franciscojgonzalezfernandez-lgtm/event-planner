@@ -1,8 +1,10 @@
 "use server";
 
 import { auth } from "@/auth";
-import z from "zod";
+import z, { success } from "zod";
 import { prisma } from "./prisma";
+import { error } from "console";
+import { revalidateTag } from "next/cache";
 
 const eventSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -66,5 +68,31 @@ export async function createEvent(_: unknown, formData: FormData) {
   } catch (error) {
     console.log(error);
     return { success: false, error: "Failed to create event", eventId: null };
+  }
+}
+
+export async function deleteEvent(eventId: string) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { success: false, error: "Not authenticated" };
+    }
+    const existingEvent = await prisma.event.findUnique({
+      where: { id: eventId },
+    });
+    if (!existingEvent) {
+      return { success: false, error: "Event not found" };
+    }
+    if (existingEvent.userId !== session.user?.id) {
+      return { success: false, error: "Not authorized to delete this event" };
+    }
+    await prisma.event.delete({
+      where: { id: eventId },
+    });
+    revalidateTag("events", "max");
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false, error: "Failed to delete the event" };
   }
 }
