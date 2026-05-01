@@ -1,7 +1,7 @@
 import EventActions from "@/app/components/EventActions";
 import RSVPButtons from "@/app/components/RSVPButtons";
 import { auth } from "@/auth";
-import type { Event } from "@/lib/models";
+import type { Event, RSVPStatus } from "@/lib/models";
 import AttendeesIcon from "@/public/AttendeesIcon";
 import DateIcon from "@/public/DateIcon";
 import LocationIcon from "@/public/LocationIcon";
@@ -17,13 +17,20 @@ export default async function EventPage({
   const session = await auth();
   const eventsResponse = await fetch(
     `http://localhost:3000/api/events/${eventId}`,
-    { cache: "no-store" },
+    { next: { tags: [`event-${eventId}`] } },
   );
   if (!eventsResponse.ok) {
     notFound();
   }
 
   const event: Event = await eventsResponse.json();
+
+  let currentRSVP: RSVPStatus | undefined;
+
+  if (session?.user?.id) {
+    const rsvp = event.rsvps.find((r) => r.userId === session.user.id);
+    currentRSVP = rsvp?.status;
+  }
 
   const isOwner = session?.user?.id === event.userId;
 
@@ -80,14 +87,16 @@ export default async function EventPage({
                   <AttendeesIcon className="text-primary" />
                 </div>
                 <div>
-                  <span className="font-medium">{event.maxAttendees} max</span>
+                  <span className="font-medium">
+                    {event._count.rsvps} answered / {event.maxAttendees} max
+                  </span>
                 </div>
               </div>
             )}
           </div>
 
           {!isPast && event.isPublic && (
-            <RSVPButtons eventId={event.id} currentRSVP="MAYBE" />
+            <RSVPButtons eventId={event.id} currentRSVP={currentRSVP} />
           )}
           {isPast && (
             <div className="text-center p-4">

@@ -1,4 +1,7 @@
-type RSVPStatus = "GOING" | "NOT_GOING" | "MAYBE";
+"use client";
+import { useState } from "react";
+import type { RSVPStatus } from "@/lib/models";
+import { rsvpToEvent } from "@/lib/event-actions";
 
 type RSVPButtonsProps = {
   eventId: string;
@@ -9,11 +12,11 @@ export default function RSVPButtons({
   eventId,
   currentRSVP,
 }: RSVPButtonsProps) {
+  const [loading, setLoading] = useState<boolean>(false);
   function getButtonClass(status: RSVPStatus) {
     const baseClass =
-      "px-4 py-2 rounded-md font-medium transition-colors disabled:opacity-50";
+      "px-4 py-2 rounded-md font-medium transition-colors disabled:opacity-50 cursor-pointer";
     const isActive = currentRSVP === status;
-
     switch (status) {
       case "GOING":
         return `${baseClass} ${isActive ? "bg-green-600 text-white" : "bg-green-600/20 text-green-400 hover:bg-green-600/30"} `;
@@ -26,15 +29,50 @@ export default function RSVPButtons({
         return baseClass;
     }
   }
+
+  async function handleRSVP(status: RSVPStatus) {
+    setLoading(true);
+    try {
+      const result = await rsvpToEvent(eventId, status);
+      if (result.success) {
+      } else {
+        console.error("Failed to update RSVP:", result.error);
+      }
+    } catch (error) {
+      console.error("Error updating RSVP:", error);
+    } finally {
+      setLoading(false);
+    }
+    // Aquí iría la lógica para enviar el RSVP al backend
+    console.log(`RSVP for event ${eventId}: ${status}`);
+  }
   return (
     <div className="space-y-4">
       <h3 className="text-foreground text-lg font-semibold">
         RSVP to this event
       </h3>
       <div className="flex flex-wrap gap-3">
-        <button className={getButtonClass("GOING")}>Going</button>
-        <button className={getButtonClass("MAYBE")}>Maybe</button>
-        <button className={getButtonClass("NOT_GOING")}>Not going</button>
+        <button
+          className={getButtonClass("GOING")}
+          onClick={() => handleRSVP("GOING")}
+          disabled={loading}
+        >
+          Going
+        </button>
+        <button
+          className={getButtonClass("MAYBE")}
+          onClick={() => handleRSVP("MAYBE")}
+          disabled={loading}
+        >
+          Maybe
+        </button>
+        <button
+          className={getButtonClass("NOT_GOING")}
+          onClick={() => handleRSVP("NOT_GOING")}
+          disabled={loading}
+        >
+          Not going
+        </button>
       </div>
     </div>
   );

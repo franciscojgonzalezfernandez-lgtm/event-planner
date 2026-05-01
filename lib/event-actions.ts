@@ -1,10 +1,11 @@
 "use server";
 
 import { auth } from "@/auth";
-import z, { success } from "zod";
+import z from "zod";
 import { prisma } from "./prisma";
 import { error } from "console";
 import { revalidateTag } from "next/cache";
+import { RSVPStatus } from "@/lib/models";
 
 const eventSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -94,5 +95,59 @@ export async function deleteEvent(eventId: string) {
   } catch (err) {
     console.log(err);
     return { success: false, error: "Failed to delete the event" };
+  }
+}
+
+export async function rsvpToEvent(eventId: string, status: RSVPStatus) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { success: false, error: "Not authenticated" };
+    }
+    const existingEvent = await prisma.event.findUnique({
+      where: { id: eventId },
+    });
+    if (!existingEvent) {
+      return { success: false, error: "Event not found" };
+    }
+    if (!existingEvent.isPublic) {
+      return { success: false, error: "Cannot RSVP to private events" };
+    }
+    if (existingEvent.date < new Date()) {
+      return { success: false, error: "Cannot RSVP to past events" };
+    }
+    const existingRSVP = await prisma.rSVP.findUnique({
+      where: {
+        userId_eventId: {
+          userId: session.user.id,
+          eventId,
+        },
+      },
+    });
+    if (existingRSVP) {
+      await prisma.rSVP.update({
+        where: {
+          id: existingRSVP.id,
+        },
+        data: {
+          status,
+        },
+      });
+    } else {
+      await prisma.rSVP.create({
+        data: {
+          userId: session.user.id,
+          eventId,
+          status,
+        },
+      });
+    }
+    revalidateTag("events");
+    revalidateTag(`event-${eventId}`);
+    revalidateTag("rsvps");
+    return { success: true };
+  } catch (err) {
+    console.error(err);
+    return { success: false, error: "Failed to RSVP to the event" };
   }
 }

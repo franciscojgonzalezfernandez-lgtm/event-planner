@@ -19,6 +19,12 @@ export async function GET(
             email: true,
           },
         },
+        rsvps: { include: { user: { select: { name: true, email: true } } } },
+        _count: {
+          select: {
+            rsvps: true,
+          },
+        },
       },
     });
 

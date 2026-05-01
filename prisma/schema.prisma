@@ -15,6 +15,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   events        Event[]
+  rsvps         RSVP[]
 }
 
 model Account {
@@ -67,4 +68,25 @@ model Event {
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rsvps  RSVP[]
+}
+
+model RSVP {
+  id        String     @id @default(cuid())
+  status    RSVPStatus
+  eventId   String
+  userId    String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId])
+}
+
+enum RSVPStatus {
+  GOING
+  NOT_GOING
+  MAYBE
 }
