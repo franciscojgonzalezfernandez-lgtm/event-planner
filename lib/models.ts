@@ -5,6 +5,7 @@ export interface Event {
   date: Date;
   location: string;
   maxAttendees: number;
+  isPublic: boolean;
   image: string;
   userId: string;
   user: {
