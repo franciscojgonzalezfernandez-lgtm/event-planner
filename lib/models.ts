@@ -21,6 +21,9 @@ export interface Event {
 export type EventRSVP = {
   userId: string;
   status: RSVPStatus;
+  user: {
+    name: string;
+  };
 };
 
 export type RSVPStatus = "GOING" | "NOT_GOING" | "MAYBE";
