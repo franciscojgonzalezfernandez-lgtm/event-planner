@@ -91,7 +91,9 @@ export default async function DashboardPage() {
         </div>
         {userEvents.length === 0 ? (
           <div className="card p-8 text-center">
-            <p className="text-muted">You haven't created any events yet.</p>
+            <p className="text-muted">
+              You haven&apos;t created any events yet.
+            </p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -127,7 +129,9 @@ export default async function DashboardPage() {
         <h2 className="text-2xl font-bold">My RSVPs</h2>
         {userRSVPs.length === 0 ? (
           <div className="card p-8 text-center">
-            <p className="text-muted">You haven't RSVPed to any events yet.</p>
+            <p className="text-muted">
+              You haven&apos;t RSVPed to any events yet.
+            </p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
