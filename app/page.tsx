@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import GithubSignInButton from "./components/GithubSignInButton";
 import CreateIcon from "@/public/CreateIcon";
 import MultiuserIcon from "@/public/MultiUserIcon";
 import AnalyticsIcon from "@/public/AnalyticsIcon";
@@ -23,7 +22,14 @@ export default async function Home() {
               Go to Dashboard
             </Link>
           ) : (
-            <GithubSignInButton />
+            <div className="flex gap-4 justify-center">
+              <Link href="/events" className="btn-secondary text-lg px-8 py-3">
+                Browse Events
+              </Link>
+              <Link href="/login" className="btn-primary text-lg px-8 py-3">
+                Sign In
+              </Link>
+            </div>
           )}
         </div>
       </section>

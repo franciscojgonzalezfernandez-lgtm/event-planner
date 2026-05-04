@@ -100,7 +100,7 @@ export default async function EventPage({
             )}
           </div>
 
-          {!isPast && event.isPublic && (
+          {!isPast && event.isPublic && session && (
             <RSVPButtons eventId={event.id} currentRSVP={currentRSVP} />
           )}
           {isPast && (
