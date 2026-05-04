@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -8,7 +7,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get("search");
     const filter = searchParams.get("filter");
 
-    const where: Prisma.EventWhereInput = {};
+    const where: any = {}; // eslint-disable-line
 
     if (search) {
       where.OR = [
