@@ -51,7 +51,7 @@ export default async function EventPage({
             </h1>
             <p className="text-muted mb-6"> {event.description}</p>
           </div>
-          {isOwner && <EventActions eventId={event.id} isOwner={isOwner} />}
+          {isOwner && <EventActions eventId={event.id} />}
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">

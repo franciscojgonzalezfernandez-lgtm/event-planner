@@ -6,10 +6,9 @@ import { useState } from "react";
 
 type EventActionProps = {
   eventId: string;
-  isOwner: boolean;
 };
 
-export default function EventActions({ eventId, isOwner }: EventActionProps) {
+export default function EventActions({ eventId }: EventActionProps) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   async function handleDelete() {
