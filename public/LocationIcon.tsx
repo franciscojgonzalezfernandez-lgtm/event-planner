@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
-export default function LocationIcon({ className }: { className: string }) {
+export default function LocationIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={cn("w-4 h-4 mr-2", className)}
+      className={cn("w-4 h-4 mr-2", className || "")}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

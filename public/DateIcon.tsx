@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
-export default function DateIcon({ className }: { className: string }) {
+export default function DateIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={cn("w-4 h-4 mr-2", className)}
+      className={cn("w-4 h-4 mr-2", className || "")}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

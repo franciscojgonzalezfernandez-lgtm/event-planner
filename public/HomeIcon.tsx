@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
-export default function HomeIcon({ className }: { className: string }) {
+export default function HomeIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={cn("w-4 h-4", className)}
+      className={cn("w-4 h-4", className || "")}
       fill="currentColor"
       viewBox="0 0 20 20"
     >
