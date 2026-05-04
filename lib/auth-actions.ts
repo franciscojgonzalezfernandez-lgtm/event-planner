@@ -2,8 +2,12 @@
 
 import { signIn, signOut } from "@/auth";
 
-export async function login() {
+export async function loginGithub() {
   await signIn("github", { redirectTo: "/dashboard" });
+}
+
+export async function loginGoogle() {
+  await signIn("google", { redirectTo: "/dashboard" });
 }
 
 export async function logout() {

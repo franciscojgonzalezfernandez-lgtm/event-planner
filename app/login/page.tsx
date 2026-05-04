@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import GithubSignInButton from "../components/GithubSignInButton";
 import { redirect } from "next/navigation";
+import GoogleSignInButton from "../components/GoogleSignInButton";
 export default async function LoginPage() {
   const session = await auth();
   if (session?.user?.id) {
@@ -15,11 +16,13 @@ export default async function LoginPage() {
         </div>
         <div className="card p-8">
           <div className="space-y-6">
-            <div className="text-center">
-              <p className="text-muted mb-6">
-                Use your github account to sign in or create a new account
+            <div className="text-center space-y-6">
+              <p className="text-muted">
+                Use your github/google account to sign in or create a new
+                account
               </p>
               <GithubSignInButton />
+              <GoogleSignInButton />
             </div>
             <div className="text-center">
               <p className="text-sm text-muted">

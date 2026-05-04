@@ -1,11 +1,11 @@
 "use client";
 
-import { login } from "@/lib/auth-actions";
+import { loginGithub } from "@/lib/auth-actions";
 
 export default function GithubSignInButton() {
   return (
     <button
-      onClick={login}
+      onClick={loginGithub}
       className="w-full flex bg-gray-900 text-foreground items-center justify-center gap-3 font-medium px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer"
     >
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
