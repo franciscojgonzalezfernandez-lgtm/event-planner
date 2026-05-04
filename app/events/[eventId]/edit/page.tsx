@@ -12,7 +12,7 @@ export default async function EditEventPage({
   const session = await auth();
 
   const response = await fetch(
-    `http://localhost:3000/api/events/${eventId}`,
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/events/${eventId}`,
     { next: { tags: [`event-${eventId}`] } },
   );
 

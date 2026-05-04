@@ -14,12 +14,12 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const events = await fetch("http://localhost:3000/api/dashboard/events", {
+  const events = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/events`, {
     next: { tags: ["events"] },
   });
   const userEvents = (await events.ok) ? await events.json() : [];
 
-  const rsvps = await fetch("http://localhost:3000/api/dashboard/rsvps", {
+  const rsvps = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/rsvps`, {
     next: { tags: ["rsvps"] },
   });
   const userRSVPs: EventRSVP[] = (await rsvps.ok) ? await rsvps.json() : [];
