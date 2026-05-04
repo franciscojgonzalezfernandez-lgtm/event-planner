@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import z from "zod";
 import { prisma } from "./prisma";
 import { error } from "console";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { RSVPStatus } from "@/lib/models";
 
 const eventSchema = z.object({
@@ -90,11 +90,63 @@ export async function deleteEvent(eventId: string) {
     await prisma.event.delete({
       where: { id: eventId },
     });
-    revalidateTag("events", "max");
+    updateTag("events");
     return { success: true };
   } catch (err) {
     console.log(err);
     return { success: false, error: "Failed to delete the event" };
+  }
+}
+
+export async function updateEvent(
+  eventId: string,
+  _: unknown,
+  formData: FormData,
+) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, error: "Unauthorized" };
+  }
+  try {
+    const existingEvent = await prisma.event.findUnique({
+      where: { id: eventId },
+    });
+    if (!existingEvent) {
+      return { success: false, error: "Event not found" };
+    }
+    if (existingEvent.userId !== session.user.id) {
+      return { success: false, error: "Not authorized to edit this event" };
+    }
+    const rawData = {
+      title: formData.get("title") as string,
+      description: formData.get("description") as string,
+      date: formData.get("date") as string,
+      image: (formData.get("image") as string) || undefined,
+      location: formData.get("location") as string,
+      maxAttendees: (formData.get("maxAttendees") as string) || undefined,
+      isPublic: formData.get("isPublic") ? "on" : "off",
+    };
+    const validatedData = eventSchema.parse(rawData);
+    await prisma.event.update({
+      where: { id: eventId },
+      data: {
+        title: validatedData.title,
+        description: validatedData.description,
+        date: new Date(validatedData.date),
+        location: validatedData.location,
+        image: validatedData.image || null,
+        maxAttendees: validatedData.maxAttendees
+          ? Number(validatedData.maxAttendees)
+          : null,
+        isPublic: validatedData.isPublic === "on",
+      },
+    });
+    updateTag("events");
+    updateTag(`event-${eventId}`);
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false, error: "Failed to update event" };
   }
 }
 
@@ -142,9 +194,9 @@ export async function rsvpToEvent(eventId: string, status: RSVPStatus) {
         },
       });
     }
-    revalidateTag("events");
-    revalidateTag(`event-${eventId}`);
-    revalidateTag("rsvps");
+    updateTag("events");
+    updateTag(`event-${eventId}`);
+    updateTag("rsvps");
     return { success: true };
   } catch (err) {
     console.error(err);
