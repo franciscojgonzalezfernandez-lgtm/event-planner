@@ -24,6 +24,7 @@ export type EventRSVP = {
   user: {
     name: string;
   };
+  event?: Event; // Optional to avoid circular reference issues when fetching RSVPs without event details
 };
 
 export type RSVPStatus = "GOING" | "NOT_GOING" | "MAYBE";
