@@ -6,6 +6,7 @@ import AttendeesIcon from "@/public/AttendeesIcon";
 import DateIcon from "@/public/DateIcon";
 import LocationIcon from "@/public/LocationIcon";
 import { format } from "date-fns";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -53,6 +54,18 @@ export default async function EventPage({
           </div>
           {isOwner && <EventActions eventId={event.id} />}
         </div>
+        {event.image && (
+          <div className="relative w-full h-72 rounded-xl overflow-hidden mb-8">
+            <Image
+              src={event.image}
+              alt={event.title}
+              fill
+              sizes="(max-width: 896px) 100vw, 896px"
+              priority
+              className="object-cover"
+            />
+          </div>
+        )}
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">
             <div className="flex items-center">

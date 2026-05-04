@@ -20,7 +20,6 @@ export default async function DashboardPage() {
     },
   );
   const userEvents = (await events.ok) ? await events.json() : [];
-  console.log(userEvents);
 
   const rsvps = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/rsvps`,
