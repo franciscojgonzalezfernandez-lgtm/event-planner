@@ -3,7 +3,6 @@ import { Event, EventRSVP } from "@/lib/models";
 import AttendeesIcon from "@/public/AttendeesIcon";
 import DateIcon from "@/public/DateIcon";
 import { format } from "date-fns";
-import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -14,14 +13,21 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const events = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/events`, {
-    next: { tags: ["events"] },
-  });
+  const events = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/events`,
+    {
+      next: { tags: ["events"] },
+    },
+  );
   const userEvents = (await events.ok) ? await events.json() : [];
+  console.log(userEvents);
 
-  const rsvps = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/rsvps`, {
-    next: { tags: ["rsvps"] },
-  });
+  const rsvps = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/dashboard/rsvps`,
+    {
+      next: { tags: ["rsvps"] },
+    },
+  );
   const userRSVPs: EventRSVP[] = (await rsvps.ok) ? await rsvps.json() : [];
 
   const now = new Date();
@@ -114,8 +120,7 @@ export default async function DashboardPage() {
                 <div className="flex items-center mt-2">
                   <AttendeesIcon className="text-primary" />
                   <p className="text-sm text-muted mt-1">
-                    {event._count?.rsvps || 0}{" "}
-                    {event._count?.rsvps === 1 ? "RSVP" : "RSVPs"}
+                    {event._count?.rsvps || 0} RSVPs
                   </p>
                 </div>
               </Link>

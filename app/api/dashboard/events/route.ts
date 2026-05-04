@@ -10,6 +10,11 @@ export async function GET() {
       where: {
         userId: session?.user?.id,
       },
+      include: {
+        _count: {
+          select: { rsvps: true },
+        },
+      },
       orderBy: {
         date: "asc",
       },
