@@ -87,6 +87,7 @@ export default function Navbar({ session }: { session: Session | null }) {
               <Link
                 href={"/events"}
                 className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Events
               </Link>
@@ -95,18 +96,23 @@ export default function Navbar({ session }: { session: Session | null }) {
                   <Link
                     href={"/events/create"}
                     className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     Create events
                   </Link>
                   <Link
                     href={"/dashboard"}
                     className="hover:text-primary block px-3 py-2 rouded-md text-base font-medium transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <div className="flex items-center space-x-2 px-3">
                     <button
-                      onClick={logout}
+                      onClick={() => {
+                        logout();
+                        setIsMenuOpen(false);
+                      }}
                       className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-base font-medium transition-colors"
                     >
                       Log out
@@ -117,6 +123,7 @@ export default function Navbar({ session }: { session: Session | null }) {
                 <div className="flex items-center space-x-2 px-3">
                   <Link
                     href={"/login"}
+                    onClick={() => setIsMenuOpen(false)}
                     className="bg-primary text-background rounded-md hover:bg-primary/90 px-3 py-2 rouded-md text-base font-medium transition-colors"
                   >
                     Sign Up
