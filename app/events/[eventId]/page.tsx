@@ -29,7 +29,7 @@ export default async function EventPage({
   let currentRSVP: RSVPStatus | undefined;
 
   if (session?.user?.id) {
-    const rsvp = event.rsvps.find((r) => r.userId === session.user.id);
+    const rsvp = event.rsvps.find((r) => r.userId === session!.user!.id);
     currentRSVP = rsvp?.status;
   }
 
