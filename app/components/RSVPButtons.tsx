@@ -48,9 +48,9 @@ export default function RSVPButtons({
   }
   return (
     <div className="space-y-4">
-      <h3 className="text-foreground text-lg font-semibold">
+      <h2 className="text-foreground text-lg font-semibold">
         RSVP to this event
-      </h3>
+      </h2>
       <div className="flex flex-wrap gap-3">
         <button
           className={getButtonClass("GOING")}

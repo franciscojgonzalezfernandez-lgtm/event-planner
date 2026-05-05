@@ -61,24 +61,21 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Total Events */}
         <div className="card p-6">
-          <h2 className="text-3xl font-semibold">Total Events</h2>
+          <p className="text-sm font-medium text-muted uppercase tracking-wide">Total Events</p>
           <p className="text-3xl font-bold text-primary">{userEvents.length}</p>
         </div>
-        {/* Total Events */}
         <div className="card p-6">
-          <h2 className="text-3xl font-semibold">Upcoming Events</h2>
+          <p className="text-sm font-medium text-muted uppercase tracking-wide">Upcoming Events</p>
           <p className="text-3xl font-bold text-primary">
             {upcomingEvents.length}
           </p>
         </div>
-        {/* Total Events */}
         <div className="card p-6">
-          <h2 className="text-3xl font-semibold">Past Events</h2>
+          <p className="text-sm font-medium text-muted uppercase tracking-wide">Past Events</p>
           <p className="text-3xl font-bold text-primary">{pastEvents.length}</p>
         </div>
-        {/* Total Events */}
         <div className="card p-6">
-          <h2 className="text-3xl font-semibold">My RSVPs</h2>
+          <p className="text-sm font-medium text-muted uppercase tracking-wide">My RSVPs</p>
           <p className="text-3xl font-bold text-primary">{userRSVPs.length}</p>
         </div>
       </div>

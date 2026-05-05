@@ -17,6 +17,7 @@ export default async function Home() {
           fill
           sizes="(max-width: 896px) 100vw, 896px"
           priority
+          fetchPriority="high"
           className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/55" />
@@ -67,9 +68,9 @@ export default async function Home() {
         ].map(({ title, desc, Icon }) => (
           <div key={title} className="card p-6 space-y-3">
             <Icon className="text-primary mx-auto mb-2" />
-            <h3 className="text-lg font-semibold text-foreground text-center">
+            <h2 className="text-lg font-semibold text-foreground text-center">
               {title}
-            </h3>
+            </h2>
             <p className="text-muted text-sm text-center">{desc}</p>
           </div>
         ))}

@@ -79,9 +79,9 @@ export default function EventList({
             className="card overflow-hidden transition-shadow hover:shadow-lg px-6"
           >
             <div className="py-6">
-              <h3 className="text-xl font-semibold text-foreground mb-2">
+              <h2 className="text-xl font-semibold text-foreground mb-2">
                 {event.title}
-              </h3>
+              </h2>
               <p className="text-muted mb-4">{event.description}</p>
               <div className="space-y-2 text-sm text-muted">
                 <div className="flex items-center">
