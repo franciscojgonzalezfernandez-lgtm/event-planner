@@ -43,8 +43,6 @@ export default function RSVPButtons({
     } finally {
       setLoading(false);
     }
-    // Aquí iría la lógica para enviar el RSVP al backend
-    console.log(`RSVP for event ${eventId}: ${status}`);
   }
   return (
     <div className="space-y-4">

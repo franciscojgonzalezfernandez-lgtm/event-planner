@@ -39,8 +39,6 @@ export default async function EventsPage({
   );
   const events = eventsResponse.ok ? await eventsResponse.json() : [];
 
-  console.log(events);
-
   return (
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
