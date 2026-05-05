@@ -5,6 +5,7 @@ import z from "zod";
 import { prisma } from "./prisma";
 import { error } from "console";
 import { updateTag } from "next/cache";
+import { unauthorized } from "next/navigation";
 import { RSVPStatus } from "@/lib/models";
 
 const eventSchema = z.object({
@@ -38,7 +39,7 @@ const eventSchema = z.object({
 export async function createEvent(_: unknown, formData: FormData) {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: "Unauthorized" };
+    unauthorized();
   }
   try {
     const rawData = {
@@ -73,11 +74,11 @@ export async function createEvent(_: unknown, formData: FormData) {
 }
 
 export async function deleteEvent(eventId: string) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    unauthorized();
+  }
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
-      return { success: false, error: "Not authenticated" };
-    }
     const existingEvent = await prisma.event.findUnique({
       where: { id: eventId },
     });
@@ -105,7 +106,7 @@ export async function updateEvent(
 ) {
   const session = await auth();
   if (!session?.user?.id) {
-    return { success: false, error: "Unauthorized" };
+    unauthorized();
   }
   try {
     const existingEvent = await prisma.event.findUnique({
@@ -151,11 +152,11 @@ export async function updateEvent(
 }
 
 export async function rsvpToEvent(eventId: string, status: RSVPStatus) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    unauthorized();
+  }
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
-      return { success: false, error: "Not authenticated" };
-    }
     const existingEvent = await prisma.event.findUnique({
       where: { id: eventId },
     });

@@ -3,6 +3,7 @@
 import "./globals.css";
 import AlertIcon from "@/public/AlertIcon";
 import HomeIcon from "@/public/HomeIcon";
+import Link from "next/link";
 
 export default function GlobalError({
   error,
@@ -39,10 +40,13 @@ export default function GlobalError({
               >
                 Try again
               </button>
-              <a href="/" className="btn-secondary px-6 py-2 flex items-center gap-2">
+              <Link
+                href="/"
+                className="btn-secondary px-6 py-2 flex items-center gap-2"
+              >
                 <HomeIcon className="w-4 h-4" />
                 Back Home
-              </a>
+              </Link>
             </div>
           </div>
         </div>

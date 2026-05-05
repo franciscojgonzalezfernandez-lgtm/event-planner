@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import type { Event } from "@/lib/models";
-import { notFound, redirect } from "next/navigation";
+import { notFound, redirect, unauthorized } from "next/navigation";
 import EditEventForm from "./EditEventForm";
 
 export default async function EditEventPage({
@@ -10,6 +10,10 @@ export default async function EditEventPage({
 }) {
   const { eventId } = await params;
   const session = await auth();
+
+  if (!session?.user?.id) {
+    unauthorized();
+  }
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_APP_URL}/api/events/${eventId}`,
