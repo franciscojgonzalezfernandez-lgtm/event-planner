@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import EventList from "../components/EventList";
+import Link from "next/link";
 
 export default async function EventsPage({
   searchParams,
@@ -32,9 +33,9 @@ export default async function EventsPage({
           </p>
         </div>
         {session && (
-          <a href="/events/create" className="btn-primary">
+          <Link href="/events/create" className="btn-primary">
             Create Event
-          </a>
+          </Link>
         )}
       </div>
       <EventList
