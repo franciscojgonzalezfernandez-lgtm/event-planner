@@ -6,9 +6,52 @@ import AttendeesIcon from "@/public/AttendeesIcon";
 import DateIcon from "@/public/DateIcon";
 import LocationIcon from "@/public/LocationIcon";
 import { format } from "date-fns";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+type Props = { params: Promise<{ eventId: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { eventId } = await params;
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/events/${eventId}`,
+    { next: { tags: [`event-${eventId}`] } },
+  );
+  if (!response.ok) return { title: "Event not found" };
+
+  const event: Event = await response.json();
+  const description = event.description
+    ? event.description.slice(0, 160)
+    : `Join ${event.title} on Evently.`;
+
+  if (!event.isPublic) {
+    return {
+      title: event.title,
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return {
+    title: event.title,
+    description,
+    openGraph: {
+      title: event.title,
+      description,
+      url: `/events/${eventId}`,
+      ...(event.image && {
+        images: [{ url: event.image, width: 1200, height: 630, alt: event.title }],
+      }),
+    },
+    twitter: {
+      card: event.image ? "summary_large_image" : "summary",
+      title: event.title,
+      description,
+      ...(event.image && { images: [event.image] }),
+    },
+  };
+}
 
 export default async function EventPage({
   params,

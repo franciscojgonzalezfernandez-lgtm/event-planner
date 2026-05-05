@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { auth } from "@/auth";
 import GithubSignInButton from "../components/GithubSignInButton";
 import { redirect } from "next/navigation";
 import GoogleSignInButton from "../components/GoogleSignInButton";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+  description: "Sign in to Evently with GitHub or Google to start creating and managing events.",
+  robots: { index: false, follow: false },
+};
 export default async function LoginPage() {
   const session = await auth();
   if (session?.user?.id) {

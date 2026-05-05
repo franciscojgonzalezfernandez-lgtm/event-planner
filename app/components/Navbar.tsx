@@ -16,7 +16,7 @@ export default function Navbar({ session }: { session: Session | null }) {
               href={"/"}
               className="font-bold text-xl text-primary hover:text-foreground transition-colors"
             >
-              EventPlanner
+              Evently
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-4">

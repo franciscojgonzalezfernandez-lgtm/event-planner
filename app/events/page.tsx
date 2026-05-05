@@ -1,6 +1,24 @@
+import type { Metadata } from "next";
 import { auth } from "@/auth";
 import EventList from "../components/EventList";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Browse Events",
+  description:
+    "Discover and join upcoming social and professional events. Search, filter by date, and find what's happening near you.",
+  openGraph: {
+    title: "Browse Events | Evently",
+    description:
+      "Discover and join upcoming social and professional events near you.",
+    url: "/events",
+  },
+  twitter: {
+    title: "Browse Events | Evently",
+    description:
+      "Discover and join upcoming social and professional events near you.",
+  },
+};
 
 export default async function EventsPage({
   searchParams,

@@ -1,6 +1,34 @@
+import type { Metadata } from "next";
 import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Evently — Plan Events Together",
+  },
+  description:
+    "Evently makes it easy to create public or private events, invite people, and manage RSVPs in real time. Built for social and professional gatherings.",
+  openGraph: {
+    title: "Evently — Plan Events Together",
+    description:
+      "Create events, invite people, and manage RSVPs — all in one place.",
+    url: "/",
+    images: [
+      {
+        url: "/hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Evently — Plan events together",
+      },
+    ],
+  },
+  twitter: {
+    title: "Evently — Plan Events Together",
+    description:
+      "Create events, invite people, and manage RSVPs — all in one place.",
+  },
+};
 import CreateIcon from "@/public/CreateIcon";
 import MultiuserIcon from "@/public/MultiUserIcon";
 import AnalyticsIcon from "@/public/AnalyticsIcon";
