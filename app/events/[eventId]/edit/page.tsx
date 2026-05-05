@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
+import EventForm from "@/app/components/EventForm";
 import type { Event } from "@/lib/models";
 import { notFound, redirect, unauthorized } from "next/navigation";
-import EditEventForm from "./EditEventForm";
 
 export default async function EditEventPage({
   params,
@@ -30,5 +30,5 @@ export default async function EditEventPage({
     redirect(`/events/${eventId}`);
   }
 
-  return <EditEventForm event={event} />;
+  return <EventForm event={event} />;
 }
