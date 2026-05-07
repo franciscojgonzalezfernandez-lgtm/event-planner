@@ -41,7 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: `/events/${eventId}`,
       ...(event.image && {
-        images: [{ url: event.image, width: 1200, height: 630, alt: event.title }],
+        images: [
+          { url: event.image, width: 1200, height: 630, alt: event.title },
+        ],
       }),
     },
     twitter: {
@@ -178,47 +180,49 @@ export default async function EventPage({
             {/* GOING */}
             {goingRSVPs.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-green-600 mb-3">
+                <h3 className="text-lg font-semibold text-emerald-700 mb-3">
                   Going ({goingRSVPs.length})
                 </h3>
+                {goingRSVPs.map((rsvp) => (
+                  <div key={rsvp.userId} className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-emerald-500 mt-1 mr-2"></div>
+                    <span className="text-foreground">{rsvp.user.name}</span>
+                  </div>
+                ))}
               </div>
             )}
-            {goingRSVPs.map((rsvp) => (
-              <div key={rsvp.userId} className="flex items-center">
-                <div className="w-3 h-3 rounded-full bg-green-600 mt-1 mr-2"></div>
-                <span className="text-foreground">{rsvp.user.name}</span>
-              </div>
-            ))}
+
             {/* MAYBE */}
 
             {maybeRSVPs.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-yellow-600 mb-3">
+                <h3 className="text-lg font-semibold text-amber-600 mb-3">
                   Maybe ({maybeRSVPs.length})
                 </h3>
+                {maybeRSVPs.map((rsvp) => (
+                  <div key={rsvp.userId} className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-amber-500 mt-1 mr-2"></div>
+                    <span className="text-foreground">{rsvp.user.name}</span>
+                  </div>
+                ))}
               </div>
             )}
-            {maybeRSVPs.map((rsvp) => (
-              <div key={rsvp.userId} className="flex items-center">
-                <div className="w-3 h-3 rounded-full bg-yellow-600 mt-1 mr-2"></div>
-                <span className="text-foreground">{rsvp.user.name}</span>
-              </div>
-            ))}
+
             {/* NOT GOING */}
 
             {notGoingRSVPs.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-red-600 mb-3">
+                <h3 className="text-lg font-semibold text-rose-700 mb-3">
                   Not Going ({notGoingRSVPs.length})
                 </h3>
+                {notGoingRSVPs.map((rsvp) => (
+                  <div key={rsvp.userId} className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-rose-500 mt-1 mr-2"></div>
+                    <span className="text-foreground">{rsvp.user.name}</span>
+                  </div>
+                ))}
               </div>
             )}
-            {notGoingRSVPs.map((rsvp) => (
-              <div key={rsvp.userId} className="flex items-center">
-                <div className="w-3 h-3 rounded-full bg-red-600 mt-1 mr-2"></div>
-                <span className="text-foreground">{rsvp.user.name}</span>
-              </div>
-            ))}
           </div>
         </div>
       )}

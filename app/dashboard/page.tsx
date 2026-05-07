@@ -102,7 +102,7 @@ export default async function DashboardPage() {
               <Link
                 key={event.id}
                 href={`/events/${event.id}`}
-                className="card p-4 hover:bg-secondary transition-colors"
+                className="card p-4 hover:bg-primary/10 transition-colors"
               >
                 <h3 className="text-lg font-semibold">{event.title}</h3>
                 <p className="text-sm text-muted mt-1">{event.description}</p>
@@ -139,7 +139,7 @@ export default async function DashboardPage() {
               <div className="card p-6 space-y-4" key={key}>
                 <h3 className="text-lg font-semibold">{rsvp.event?.title}</h3>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${rsvp.status === "GOING" ? "bg-green-600/20 text-green-400" : rsvp.status === "NOT_GOING" ? "bg-red-600/20 text-red-400" : "bg-yellow-600/20 text-yellow-400"}`}
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${rsvp.status === "GOING" ? "bg-emerald-100 text-emerald-700" : rsvp.status === "NOT_GOING" ? "bg-rose-100 text-rose-700" : "bg-amber-100 text-amber-700"}`}
                 >
                   {rsvp.status}
                 </span>

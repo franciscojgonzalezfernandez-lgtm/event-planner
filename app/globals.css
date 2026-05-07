@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0b1120; /* Deep navy blue background */
-  --color-primary: #3b82f6; /* Soft sky blue (used in buttons and highlights) */
-  --color-secondary: #06b6d4; /* Cyan accent (used in code highlights and icons) */
-  --color-foreground: #f1f5f9; /* Light text color */
-  --color-muted: #94a3b8; /* Muted slate (used for secondary text) */
+  --color-background: #f8f7ff; /* Lavanda muy claro */
+  --color-primary: #7c3aed; /* Violeta */
+  --color-secondary: #a78bfa; /* Lila */
+  --color-foreground: #1e1b4b; /* Texto oscuro */
+  --color-muted: #6b7280; /* Gris medio */
 }
 
 @layer base {
@@ -16,18 +16,18 @@
 
 @layer components {
   .card {
-    @apply bg-slate-800 border border-slate-700 rounded-md;
+    @apply bg-white border border-slate-200 rounded-md shadow-sm;
   }
   .input-field {
-    @apply w-full px-3 py-2 border border-slate-600 rounded-md bg-slate-800 text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+    @apply w-full px-3 py-2 border border-slate-200 rounded-md bg-white text-foreground placeholder-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
   }
   .btn-primary {
-    @apply bg-primary text-background px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors cursor-pointer;
+    @apply bg-primary text-white px-4 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors cursor-pointer;
   }
   .btn-secondary {
-    @apply bg-secondary text-background px-4 py-2 rounded-md font-medium hover:bg-secondary/90 transition-colors cursor-pointer;
+    @apply bg-violet-100 text-primary px-4 py-2 rounded-md font-medium hover:bg-violet-200 transition-colors cursor-pointer;
   }
   .btn-danger {
-    @apply bg-red-600 text-foreground px-4 py-2 rounded-md font-medium hover:bg-red-600/90 transition-colors cursor-pointer;
+    @apply bg-red-600 text-white px-4 py-2 rounded-md font-medium hover:bg-red-600/90 transition-colors cursor-pointer;
   }
 }

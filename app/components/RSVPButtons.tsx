@@ -19,12 +19,12 @@ export default function RSVPButtons({
     const isActive = currentRSVP === status;
     switch (status) {
       case "GOING":
-        return `${baseClass} ${isActive ? "bg-green-600 text-white" : "bg-green-600/20 text-green-400 hover:bg-green-600/30"} `;
+        return `${baseClass} ${isActive ? "bg-emerald-600 text-white" : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"} `;
 
       case "NOT_GOING":
-        return `${baseClass} ${isActive ? "bg-red-600 text-white" : "bg-red-600/20 text-red-400 hover:bg-red-600/30"} `;
+        return `${baseClass} ${isActive ? "bg-rose-600 text-white" : "bg-rose-100 text-rose-700 hover:bg-rose-200"} `;
       case "MAYBE":
-        return `${baseClass} ${isActive ? "bg-yellow-600 text-white" : "bg-yellow-600/20 text-yellow-400 hover:bg-yellow-600/30"} `;
+        return `${baseClass} ${isActive ? "bg-amber-500 text-white" : "bg-amber-100 text-amber-700 hover:bg-amber-200"} `;
       default:
         return baseClass;
     }

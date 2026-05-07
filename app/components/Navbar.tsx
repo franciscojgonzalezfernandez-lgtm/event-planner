@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Navbar({ session }: { session: Session | null }) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
-    <nav className="bg-slate-800 border-b border-slate-700 shadow-lg">
+    <nav className="bg-white border-b border-slate-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex justify-between items-center">
           <div className="flex items-center">
