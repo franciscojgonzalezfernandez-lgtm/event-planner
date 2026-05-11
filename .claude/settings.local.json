@@ -4,7 +4,9 @@
       "Bash(grep -E '\\\\.\\(tsx|ts|jsx|js\\)$')",
       "Bash(xargs ls *)",
       "Bash(npm test *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx eslint *)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/javi/Desktop/React-Projects/portfolio-website/public/intro-cover.webp)"
     ]
   }
 }
